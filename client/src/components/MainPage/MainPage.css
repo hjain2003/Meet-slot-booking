@@ -1,33 +1,35 @@
-.full_page_container{
+.full_page_container {
     height: 100vh;
     width: 100%;
     background-color: lightblue;
-}
-nav{
+  }
+  
+  nav {
     background-color: black;
     color: white;
     height: 50px;
     line-height: 50px;
     padding: 10px;
-}
-
-.meet_container{
+  }
+  
+  .meet_container {
     font-size: 20px;
     height: 500px;
     width: 700px;
-    /* border: 2px solid black; */
     display: flex;
     flex-direction: column;
     margin: auto;
     margin-top: 30px;
     padding: 10px;
-}
-.search_add{
+  }
+  
+  .search_add {
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
-#add_meet{
+  }
+  
+  #add_meet {
     background-color: green;
     color: white;
     border: none;
@@ -35,15 +37,20 @@ nav{
     padding: 10px;
     font-weight: bold;
     cursor: pointer;
-    width: 100px;
-}
-#search{
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #search {
     padding: 10px;
     border: none;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-}
-#search_btn{
+  }
+  
+  #search_btn {
     background-color: black;
     color: white;
     border-top-right-radius: 20px;
@@ -51,15 +58,17 @@ nav{
     padding: 10px;
     border: none;
     cursor: pointer;
-}
-.card_container{
+  }
+  
+  .card_container {
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
     padding: 10px;
-}
-#prev_button,#next_button{
+  }
+  
+  #prev_button,
+  #next_button {
     padding: 7px;
     border-radius: 10px;
     color: white;
@@ -67,4 +76,88 @@ nav{
     border: none;
     cursor: pointer;
     font-size: 18px;
-}
+    margin-top: -20px;
+  }
+  
+  @media (max-width: 723px) {
+    #prev_button,
+    #next_button {
+      margin-left: 30px;
+    }
+  
+    .full_page_container {
+      height: 700px;
+      width: 100%;
+    }
+  
+    .meet_container {
+      width: auto;
+      margin: 10px;
+      padding: 5px;
+    }
+  
+    #add_meet {
+      width: 100px;
+    }
+  }
+  
+ 
+  /* Responsive styles for viewport width up to 375px */
+  /* @media (max-width: 375px) {
+    .meet_container {
+      font-size: 16px;
+      height: auto;
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .search_add {
+      flex-direction: column;
+    }
+  
+    #add_meet {
+      width: 80px;
+      font-size: 12px;
+      padding: 8px;
+    }
+  
+    #search {
+      width: 100%;
+    }
+  
+    #search_btn {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+  
+    .card_container {
+      width: 100%;
+      padding: 5px;
+    }
+  
+    .button_container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    #prev_button,
+    #next_button {
+      margin: 10px;
+    }
+  
+    .card {
+      width: 90%;
+      margin: 5px auto;
+      border-radius: 30px;
+    }
+  
+    #edit_btn,
+    #delete_btn {
+      width: 30px;
+      height: 30px;
+      margin-left: 5px;
+      font-size: 14px;
+    }
+  }
+   */

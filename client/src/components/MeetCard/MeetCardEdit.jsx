@@ -33,8 +33,8 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
             if (response.status === 200) {
                 const data = await response.json();
                 console.log(data.message);
-                // Perform any necessary actions after successful meet update
                 closeMeetCardEdit();
+                window.alert("Reload the page");
             } else if (response.status === 404) {
                 console.log('Meet not found');
             } else {
@@ -80,22 +80,25 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
     }, [meetId]);
 
     return (
-        <div className="add_meet_containers">
-            <h2 align="center">Edit Meet Details</h2>
-            <br />
-            <label><i>Title</i></label>
-            <input type="text" name="title" value={meetDetails.title} onChange={handleChange} />
-            <br />
-            <label><i>Date</i></label>
-            <input type="date" name="date" value={meetDetails.date} onChange={handleChange} />
-            <br />
-            <label><i>Time</i></label>
-            <input type="time" name="time" value={meetDetails.time} onChange={handleChange} />
-            <br /><br />
-            <button id="save_meet_details" onClick={saveMeetDetails}>Save</button>
-            <br />
-            <button id="cancel" onClick={handleCancel}>Cancel</button>
-        </div>
+        <>
+            <div className="add_meet_containers">
+                <h2 align="center">Edit Meet Details</h2>
+                <br />
+                <label><i>Title</i></label>
+                <input type="text" name="title" value={meetDetails.title} onChange={handleChange} />
+                <br />
+                <label><i>Date</i></label>
+                <input type="date" name="date" value={meetDetails.date} onChange={handleChange} />
+                <br />
+                <label><i>Time</i></label>
+                <input type="time" name="time" value={meetDetails.time} onChange={handleChange} />
+                <br /><br />
+                <button id="save_meet_details" onClick={saveMeetDetails}>Save</button>
+                <br />
+                <button id="cancel" onClick={handleCancel}>Cancel</button>
+            </div>
+
+        </>
     );
 };
 

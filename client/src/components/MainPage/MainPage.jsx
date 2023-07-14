@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './MainPage.css';
 import MeetCard from '../MeetCard/MeetCard';
 import AddMeet from '../AddMeet/AddMeet';
+import { FaPlus } from 'react-icons/fa';
 
 const MainPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -50,28 +51,48 @@ const MainPage = () => {
 
       const showMeets = async () => {
         try {
-            const res = await fetch('http://localhost:5000/meets/getAllMeets', {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include'
+          const res = await fetch('http://localhost:5000/meets/getAllMeets', {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+          });
+      
+          if (res.status === 200) {
+            setIsLoading(false);
+            const data = await res.json();
+      
+            // Sort the meets based on date and time
+            const sortedMeets = data.meets.sort((a, b) => {
+              // Compare dates first
+              const dateComparison = new Date(a.date) - new Date(b.date);
+              if (dateComparison !== 0) {
+                return dateComparison;
+              }
+      
+              // If dates are the same, compare times
+              const timeComparison = a.time.localeCompare(b.time);
+              return timeComparison;
             });
-    
-            if (res.status === 200) {
-                setIsLoading(false);
-                const data = await res.json();
-                // Filter the meets based on the search query
-                const filteredMeets = data.meets.filter(meet => meet.title.toLowerCase().includes(searchQuery.toLowerCase()));
-                setMeetCards(filteredMeets);
-            } else {
-                console.log('Error:', res.status);
-            }
+      
+            // Filter the meets based on search query
+            const filteredMeets = sortedMeets.filter((meet) => {
+              const title = meet.title.toLowerCase();
+              const query = searchQuery.toLowerCase();
+              return title.includes(query);
+            });
+      
+            setMeetCards(filteredMeets);
+          } else {
+            console.log('Error:', res.status);
+          }
         } catch (error) {
-            console.log(error);
+          console.log(error);
         }
-    }
+      };
+      
     
 
     useEffect(() => {
@@ -96,7 +117,7 @@ const MainPage = () => {
                     <div className="search_add">
                         <input type="text" id="search" placeholder="Search a meet..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
                         <button id="search_btn" onClick={handleSearchClick}>Search</button>&nbsp;&nbsp;
-                        <button id="add_meet" onClick={callAddMeetComponent}>Add a Meet</button>
+                        <button id="add_meet" onClick={callAddMeetComponent}>Add a Meet &nbsp; <FaPlus/></button>
                     </div>
                     <br />
                     {IsLoading ? (<h1>Loading...</h1>) : (

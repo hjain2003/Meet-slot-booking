@@ -29,3 +29,16 @@
 #cancel{
     background-color: red;
 }
+
+@media(max-width:562px){
+    .add_meet_container{
+        height: 370px;
+        width: 370px;
+    }
+}
+@media(max-width:428px){
+    .add_meet_container{
+        height: 400px;
+        width: 300px;
+    }
+}

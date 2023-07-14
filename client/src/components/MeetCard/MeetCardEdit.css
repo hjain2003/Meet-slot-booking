@@ -30,3 +30,24 @@
 #cancel{
     background-color: red;
 }
+.reload_msg{
+    background: green;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 6px;
+}
+
+@media(max-width:562px){
+    .add_meet_containers{
+        height: 370px;
+        width: 370px;
+    }
+}
+@media(max-width:428px){
+    .add_meet_containers{
+        height: 400px;
+        width: 300px;
+    }
+}
