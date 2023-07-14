@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import { connectDB } from './dbconn/conn.js';
 import MeetRouter from './routes/meet_routes.js';
 
@@ -12,6 +13,10 @@ connectDB();
 
 //middlewares
 app.use(cookieParser());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }));
 app.use(express.json());
 app.use('/meets', MeetRouter);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MainPage.css';
 import MeetCard from '../MeetCard/MeetCard';
 import AddMeet from '../AddMeet/AddMeet';
@@ -6,28 +6,21 @@ import AddMeet from '../AddMeet/AddMeet';
 const MainPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setCardsPerPage] = useState(4);
-    const [callMeetbtn,setCallMeetbtn] = useState(false);
+    const [callMeetbtn, setCallMeetbtn] = useState(false);
+    const [IsLoading, setIsLoading] = useState(true);
+    const [meetCount, setMeetCount] = useState(0);
+    const [refreshPage, setRefreshPage] = useState(false);
 
-    const callAddMeetComponent = ()=>{
+    const callAddMeetComponent = () => {
         setCallMeetbtn(!callMeetbtn);
     }
 
-    const closeAddMeet = ()=>{
+    const closeAddMeet = () => {
         setCallMeetbtn(false);
     }
 
     // Sample data for demonstration
-    const meetCards = [
-        { date: '13/06/2003', time: '05:50 PM', title: 'Web Dev Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-        { date: '13/06/2003', time: '05:50 PM', title: 'ML/AI Meet' },
-    ];
+    const [meetCards, setMeetCards] = useState([]);
 
     // Calculate the indexes of the cards to display
     const indexOfLastCard = currentPage * cardsPerPage;
@@ -48,10 +41,43 @@ const MainPage = () => {
         }
     };
 
+    const handleCardDelete = (cardId) => {
+        setMeetCards(meetCards.filter((card) => card._id !== cardId));
+      };
+      
+
+    const showMeets = async () => {
+        try {
+            const res = await fetch('http://localhost:5000/meets/getAllMeets', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (res.status === 200) {
+                setIsLoading(false);
+                const data = await res.json();
+                setMeetCards(data.meets);
+            } else {
+                console.log('Error:', res.status);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        showMeets();
+        setRefreshPage(false);
+    }, [refreshPage]);
+
     return (
         <>
             <div className="full_page_container">
-                {callMeetbtn && <AddMeet closeAddMeet={closeAddMeet}/>}
+                {callMeetbtn && <AddMeet key={meetCount} closeAddMeet={closeAddMeet} setMeetCount={setMeetCount} setRefreshPage={setRefreshPage} />}
                 <nav>
                     <h1>GDSC Meet Slot Bookings</h1>
                 </nav>
@@ -63,16 +89,21 @@ const MainPage = () => {
                         <button id="add_meet" onClick={callAddMeetComponent}>Add a Meet</button>
                     </div>
                     <br />
-                    <div className="card_container">
-                        {currentCards.map((card, index) => (
-                            <MeetCard
-                                key={index}
-                                date={card.date}
-                                time={card.time}
-                                title={card.title}
-                            />
-                        ))}
-                    </div>
+                    {IsLoading ? (<h1>Loading...</h1>) : (
+                        <div className="card_container">
+                            {currentCards.map((card, index) => (
+                                <MeetCard
+                                    key={index}
+                                    cardId={card._id}
+                                    date={card.date}
+                                    time={card.time}
+                                    title={card.title}
+                                    onDelete={handleCardDelete}
+                                />
+                            ))}
+                        </div>
+                    )}
+
                     <div className="button_container">
                         {currentPage > 1 && (
                             <button id="prev_button" onClick={handlePrevClick}>

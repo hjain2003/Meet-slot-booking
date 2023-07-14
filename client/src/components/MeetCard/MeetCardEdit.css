@@ -1,0 +1,32 @@
+.add_meet_containers {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 20px;
+    height: 430px;
+    width: 500px;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+}
+.add_meet_containers input{
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+#save_meet_details,#cancel{
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    /* border-radius: 20px; */
+    font-size: 17px;
+    cursor: pointer;
+}
+#cancel{
+    background-color: red;
+}
