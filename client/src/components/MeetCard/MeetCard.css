@@ -1,0 +1,36 @@
+.card {
+    background-color: rgb(78, 194, 232);
+    font-size: 18px;
+    padding: 10px;
+    height: 60px;
+    line-height: 60px;
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_info {
+    flex: 1;
+    padding: 10px;
+}
+
+#edit_btn,
+#delete_btn {
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    width: 70px;
+    color: white;
+}
+#edit_btn{
+    background-color: purple;
+}
+#delete_btn{
+    background-color: red;
+}
