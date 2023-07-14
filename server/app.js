@@ -1,6 +1,19 @@
 import express from 'express';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import { connectDB } from './dbconn/conn.js';
+import MeetRouter from './routes/meet_routes.js';
 
 const app=express();
+dotenv.config({path:'./config.env'});
+
+//db
+connectDB();
+
+//middlewares
+app.use(cookieParser());
+app.use(express.json());
+app.use('/meets', MeetRouter);
 
 app.get('/',(req,res)=>{
     res.send(`Hello world app`);
