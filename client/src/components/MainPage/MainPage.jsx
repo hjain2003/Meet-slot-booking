@@ -93,7 +93,11 @@ const MainPage = () => {
         }
       };
       
-    
+      const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          showMeets();
+        }
+      };
 
     useEffect(() => {
         showMeets();
@@ -115,7 +119,7 @@ const MainPage = () => {
 
                 <div className="meet_container">
                     <div className="search_add">
-                        <input type="text" id="search" placeholder="Search a meet..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                        <input type="text" id="search" placeholder="Search a meet..." value={searchQuery} onKeyPress={handleKeyPress} onChange={(e) => setSearchQuery(e.target.value)} />
                         <button id="search_btn" onClick={handleSearchClick}>Search</button>&nbsp;&nbsp;
                         <button id="add_meet" onClick={callAddMeetComponent}>Add a Meet &nbsp; <FaPlus/></button>
                     </div>

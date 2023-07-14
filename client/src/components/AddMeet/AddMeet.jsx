@@ -56,8 +56,8 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
             <div className="add_meet_container">
                 <h2 align="center">Add Meet Details</h2>
                 <br />
-                <label><i>Title</i></label>
-                <input type="text" name="title" onChange={handleChange} />
+                <label><i>Title &#40;<span className="redit">Word Limit : 13 chars</span>&#41;</i></label>
+                <input type="text" name="title" onChange={handleChange} maxLength={13} />
                 <br />
                 <label><i>Date</i></label>
                 <input type="date" name="date" onChange={handleChange} />

@@ -12,6 +12,9 @@
     color: white;
     transform: translate(-50%, -50%);
 }
+.redit{
+    color: red;
+}
 .add_meet_container input{
     padding: 10px;
     border: none;
