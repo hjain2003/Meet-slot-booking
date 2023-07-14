@@ -10,6 +10,8 @@ const MainPage = () => {
     const [IsLoading, setIsLoading] = useState(true);
     const [meetCount, setMeetCount] = useState(0);
     const [refreshPage, setRefreshPage] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     const callAddMeetComponent = () => {
         setCallMeetbtn(!callMeetbtn);
@@ -46,7 +48,7 @@ const MainPage = () => {
       };
       
 
-    const showMeets = async () => {
+      const showMeets = async () => {
         try {
             const res = await fetch('http://localhost:5000/meets/getAllMeets', {
                 method: 'GET',
@@ -56,11 +58,13 @@ const MainPage = () => {
                 },
                 credentials: 'include'
             });
-
+    
             if (res.status === 200) {
                 setIsLoading(false);
                 const data = await res.json();
-                setMeetCards(data.meets);
+                // Filter the meets based on the search query
+                const filteredMeets = data.meets.filter(meet => meet.title.toLowerCase().includes(searchQuery.toLowerCase()));
+                setMeetCards(filteredMeets);
             } else {
                 console.log('Error:', res.status);
             }
@@ -68,11 +72,17 @@ const MainPage = () => {
             console.log(error);
         }
     }
+    
 
     useEffect(() => {
         showMeets();
         setRefreshPage(false);
     }, [refreshPage]);
+
+    const handleSearchClick = () => {
+        showMeets();
+    };
+    
 
     return (
         <>
@@ -84,8 +94,8 @@ const MainPage = () => {
 
                 <div className="meet_container">
                     <div className="search_add">
-                        <input type="text" id="search" placeholder="Search a meet..." />
-                        <button id="search_btn">Search</button>&nbsp;&nbsp;
+                        <input type="text" id="search" placeholder="Search a meet..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                        <button id="search_btn" onClick={handleSearchClick}>Search</button>&nbsp;&nbsp;
                         <button id="add_meet" onClick={callAddMeetComponent}>Add a Meet</button>
                     </div>
                     <br />

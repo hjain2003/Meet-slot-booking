@@ -29,6 +29,23 @@ export const setMeet = async (req, res) => {
     }
 };
 
+//getMeetbyId
+export const getMeetById = async (req, res) => {
+    const meetId = req.params.id;
+
+    try {
+        const meet = await Meet.findById(meetId);
+
+        if (meet) {
+            res.status(200).json(meet);
+        } else {
+            res.status(404).json({ error: "Meet not found!" });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Server error!" });
+    }
+};
 
 //showMeets
 export const getAllMeets=async(req,res)=>{

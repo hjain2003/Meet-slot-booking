@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MeetCardEdit.css';
 
 const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
@@ -33,6 +33,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
             if (response.status === 200) {
                 const data = await response.json();
                 console.log(data.message);
+                // Perform any necessary actions after successful meet update
                 closeMeetCardEdit();
             } else if (response.status === 404) {
                 console.log('Meet not found');
@@ -47,6 +48,36 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
     const handleCancel = () => {
         closeMeetCardEdit();
     };
+
+    useEffect(() => {
+        const fetchMeetDetails = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/meets/getMeetbyId/${meetId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 200) {
+                    const data = await response.json();
+                    setMeetDetails({
+                        title: data.title,
+                        date: data.date,
+                        time: data.time
+                    });
+                } else if (response.status === 404) {
+                    console.log('Meet not found');
+                } else {
+                    console.log('Error:', response.status);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchMeetDetails();
+    }, [meetId]);
 
     return (
         <div className="add_meet_containers">
