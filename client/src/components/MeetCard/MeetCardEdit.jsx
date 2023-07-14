@@ -84,7 +84,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
             <div className="add_meet_containers">
                 <h2 align="center">Edit Meet Details</h2>
                 <br />
-                <label><i>Title</i></label>
+                <label><i>Title &#40;<span className="redit">Word Limit : 13 chars</span>&#41;</i></label>
                 <input type="text" name="title" value={meetDetails.title} onChange={handleChange} />
                 <br />
                 <label><i>Date</i></label>
