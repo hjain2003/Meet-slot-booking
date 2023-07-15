@@ -3,6 +3,9 @@ import './MainPage.css';
 import MeetCard from '../MeetCard/MeetCard';
 import AddMeet from '../AddMeet/AddMeet';
 import { FaPlus } from 'react-icons/fa';
+import { FaKiss } from 'react-icons/fa';
+import {FaRegKissWinkHeart} from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const MainPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -116,13 +119,14 @@ const MainPage = () => {
                 <nav>
                     <h1>GDSC Meet Slot Bookings</h1>
                 </nav>
-
+                <span id="logout"><b><NavLink to='/logout'>LOGOUT</NavLink></b></span>
                 <div className="meet_container">
                     <div className="search_add">
                         <input type="text" id="search" placeholder="Search a meet..." value={searchQuery} onKeyPress={handleKeyPress} onChange={(e) => setSearchQuery(e.target.value)} />
                         <button id="search_btn" onClick={handleSearchClick}>Search</button>&nbsp;&nbsp;
                         <button id="add_meet" onClick={callAddMeetComponent}>Add a Meet &nbsp; <FaPlus/></button>
                     </div>
+              <span id="name_mainPage"><b>Hey Name baby &nbsp; <FaRegKissWinkHeart/></b></span>
                     <br />
                     {IsLoading ? (<h1>Loading...</h1>) : (
                         <div className="card_container">
