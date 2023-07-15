@@ -14,7 +14,7 @@ connectDB();
 //middlewares
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://meet-slot-booking-backend-hjain2003.vercel.app',
+    origin: 'https://meet-slot-booking-frontend.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
