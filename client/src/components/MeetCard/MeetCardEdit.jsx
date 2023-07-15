@@ -22,7 +22,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
         const { title, date, time } = meetDetails;
 
         try {
-            const response = await fetch(`https://meet-slot-booking-backend-hjain2003.vercel.app/meets/editMeet/${meetId}`, {
+            const response = await fetch(`http://localhost:5000/meets/editMeet/${meetId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
     useEffect(() => {
         const fetchMeetDetails = async () => {
             try {
-                const response = await fetch(`https://meet-slot-booking-backend-hjain2003.vercel.app/meets/getMeetbyId/${meetId}`, {
+                const response = await fetch(`http://localhost:5000/meets/getMeetbyId/${meetId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

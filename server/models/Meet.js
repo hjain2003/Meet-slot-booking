@@ -12,6 +12,10 @@ const meetSchema = new mongoose.Schema({
     time:{
         type: String,
         required: true
+    },
+    user : {
+        type : mongoose.Types.ObjectId,
+        ref : "User"
     }
 });
 
