@@ -22,7 +22,7 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
 
         const { date, time, title } = meetDetails;
         try {
-            const res = await fetch('http://localhost:5000/meets/addMeet', {
+            const res = await fetch('https://meet-slot-booking-backend-hjain2003.vercel.app/meets/addMeet', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

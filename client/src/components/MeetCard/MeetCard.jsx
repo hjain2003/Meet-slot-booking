@@ -16,7 +16,7 @@ const MeetCard = (props) => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/meets/${props.cardId}`, {
+      const response = await fetch(`https://meet-slot-booking-backend-hjain2003.vercel.app/meets/${props.cardId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
