@@ -7,6 +7,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
         date: "",
         time: ""
     });
+    const [loadMsg,setLoadMsg] = useState('SAVE');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -17,6 +18,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
     };
 
     const saveMeetDetails = async (e) => {
+        setLoadMsg('PROCESSING...');
         e.preventDefault();
 
         const { title, date, time } = meetDetails;
@@ -31,16 +33,20 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
             });
 
             if (response.status === 200) {
+                setLoadMsg('SAVE');
                 const data = await response.json();
                 console.log(data.message);
                 closeMeetCardEdit();
                 window.alert("Reload the page");
             } else if (response.status === 404) {
+                setLoadMsg('SAVE');
                 console.log('Meet not found');
             } else {
+                setLoadMsg('SAVE');
                 console.log('Error:', response.status);
             }
         } catch (error) {
+            setLoadMsg('SAVE');
             console.log(error);
         }
     };
@@ -93,9 +99,9 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
                 <label><i>Time</i></label>
                 <input type="time" name="time" value={meetDetails.time} onChange={handleChange} />
                 <br /><br />
-                <button id="save_meet_details" onClick={saveMeetDetails}>Save</button>
+                <button id="save_meet_details" onClick={saveMeetDetails}><b>{loadMsg}</b></button>
                 <br />
-                <button id="cancel" onClick={handleCancel}>Cancel</button>
+                <button id="cancel" onClick={handleCancel}><b>CANCEL</b></button>
             </div>
 
         </>

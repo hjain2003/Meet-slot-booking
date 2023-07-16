@@ -8,6 +8,7 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
         time: "",
         title: ""
     })
+    const [loadMsg,setLoadMsg] = useState('SAVE');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,6 +19,7 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
     }
 
     const saveMeetDetails = async (e) => {
+        setLoadMsg('PROCESSING...');
         e.preventDefault();
 
         const { date, time, title } = meetDetails;
@@ -38,8 +40,10 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
             const data = await res.json();
 
             if (res.status === 422) {
-                window.alert('Meet setup failed');
+                window.alert('Empty fields or overlapping times');
+                setLoadMsg('SAVE');
             } else if (res.status !== 422) {
+                setLoadMsg('SAVE');
                 console.log(res.status);
                 console.log(data);
                 setRefreshPage(true);
@@ -65,9 +69,9 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
                 <label><i>Time</i></label>
                 <input type="time" name="time" onChange={handleChange} />
                 <br /><br />
-                <button id="save_meet_details" onClick={saveMeetDetails}>Save</button>
+                <button id="save_meet_details" onClick={saveMeetDetails}><b>{loadMsg}</b></button>
                 <br />
-                <button id="cancel" onClick={closeAddMeet}>Cancel</button>
+                <button id="cancel" onClick={closeAddMeet}><b>CANCEL</b></button>
             </div>
         </>
     )

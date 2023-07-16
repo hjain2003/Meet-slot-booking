@@ -5,7 +5,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 const Register = () => {
 
     const[isalert,setIsAlert] = useState(false);
-
+    const [isalertfail,setIsAlertFail] = useState(false);
+    const [buttonValue, setButtonValue] = useState('REGISTER');
     const navigate = useNavigate();
     const [user, setUser] = useState({
         name: "",
@@ -22,6 +23,7 @@ const Register = () => {
     }
 
     const PostData = async (e) => {
+        setButtonValue('PROCESSING...')
         e.preventDefault();
         const { name, password , hated} = user;
     
@@ -41,10 +43,14 @@ const Register = () => {
         const data = await res.json();
     
         if (res.status === 422) {
+            // window.alert("Empty fields or User already exists");
+            setIsAlertFail(true);
             console.log("Registration failed")
             console.log(res.status);
+            setButtonValue('REGISTER');
         }
         else if (res.status !== 422) {
+          setButtonValue('REGISTER');
             setIsAlert(true);
           console.log("Registration successfull");
           console.log(res.status);
@@ -56,9 +62,15 @@ const Register = () => {
       const closeAlertbar = ()=>{
         setIsAlert(false);
       }
+      const closefailedAlertbar = ()=>{
+        setIsAlertFail(false);
+      }
   return (
     <>
-        {isalert && <span id="alert">Registration successfull ! Plz Log In &nbsp;&nbsp;&nbsp;<button id="closeAlert" onClick={closeAlertbar}>Close</button></span>}
+      {isalertfail && <span id="alert">Empty fields or UserName taken ! &nbsp;&nbsp;&nbsp;<button id="closeAlert" onClick={closefailedAlertbar}>Close</button></span>}
+        <nav id="register_nav">
+          <h1>GDSC Meet Slot Bookings</h1>
+        </nav>
         <div className="register_box">
             <h2 align="center">Register</h2>
             <br />
@@ -71,9 +83,12 @@ const Register = () => {
             <label><i>The person u hate the most in GDSC</i></label>
             <input type="password" name="hated" placeholder='This field will be hashed'  onChange={handleChange}/>
             <br /><br />
-            <button id="register_btn" onClick={PostData}>REGISTER</button>
+            <button id="register_btn" onClick={PostData}><b>{buttonValue}</b></button>
             <br />
             <span>Already have an account? <NavLink to='/login'>Login here</NavLink></span>
+        </div>
+        <div className="alert_container">
+        {isalert && <span id="alert">Registration Complete! Plz Log In &nbsp;&nbsp;&nbsp;<button id="closeAlert" onClick={closeAlertbar}>Close</button></span>}
         </div>
     </>
   )

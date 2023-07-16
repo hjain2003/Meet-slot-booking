@@ -1,28 +1,14 @@
 body{
     background-color: lightblue;
 }
-#alert{
-    background-color: lightgreen;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 10px;
-    width: 100%;
-    display: flex;
-    /* margin: auto; */
-    justify-content: center;
-    align-items: center;
-}
-#closeAlert{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    background-color: rgb(10, 167, 10);
+#register_nav {
+    background-color: purple;
     color: white;
-}
+    height: 50px;
+    line-height: 50px;
+    padding: 10px;
+  }
+
 .register_box{
     background-color: black;
     height: 450px;
@@ -50,4 +36,42 @@ body{
     border-radius: 10px;
     color: white;
     cursor: pointer;
+}
+
+.alert_container{
+    height: 70px;
+    width: 350px;
+    position: absolute;
+    left: 0px;
+    top:100px;
+}
+#alert {
+    background-color: lightgreen;
+    font-weight: bold;
+    /* width: 100px; */
+    z-index: 1000;
+}
+
+
+#closeAlert{
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(10, 167, 10);
+    color: white;
+}
+
+@media(max-width: 463px){
+    .register_box{
+        width: 350px;
+    }
+}
+@media(max-width: 407px){
+    .register_box{
+        width: 300px;
+    }
 }
