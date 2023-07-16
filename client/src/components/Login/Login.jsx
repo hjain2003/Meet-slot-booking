@@ -50,10 +50,10 @@ const Login = () => {
             setLoadMsg('LOGIN');
             // window.alert("Login successful");
             console.log("Login successful");
-            navigate('/');
-            console.log(data._id);
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("jwtoken", data.token);
+            navigate('/');
+            console.log(data._id);
             console.log(res.status);
             console.log(data);
         }
