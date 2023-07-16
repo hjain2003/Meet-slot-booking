@@ -16,8 +16,8 @@ const MainPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const token = localStorage.getItem('jwtoken');
-
   console.log("TOKEN : ",token);
+
   const callAddMeetComponent = () => {
     setCallMeetbtn(!callMeetbtn);
   };
@@ -71,13 +71,14 @@ const MainPage = () => {
         const data = await res.json();
         setUserData(data);
 
-        if (data && data._id) {
+        if (data) {
           showMeets();
         } else {
           setIsLoading(false);
         }
       } else {
-        navigate('/login');
+        // navigate('/login');
+        console.log("failed");
       }
     } catch (err) {
       console.log(err);
