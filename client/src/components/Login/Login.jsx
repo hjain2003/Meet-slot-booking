@@ -25,7 +25,7 @@ const Login = () => {
         setLoadMsg('PROCESSING...');
         const { name, password } = user;
 
-        const res = await fetch('https://meet-slot-booking-backend.vercel.app/user/login', {
+        const res = await fetch('http://localhost:5000/user/login', {
             method: "POST",
             credentials: "include",
             headers: {

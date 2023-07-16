@@ -19,6 +19,8 @@ const MainPage = () => {
   const [refreshPage, setRefreshPage] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
+  const token = localStorage.getItem('jwtoken');
+
   const callAddMeetComponent = () => {
     setCallMeetbtn(!callMeetbtn);
   }
@@ -57,11 +59,12 @@ const MainPage = () => {
   const [userData, setUserData] = useState('');
   const callHomePage = async () => {
     try {
-      const res = await fetch('https://meet-slot-booking-backend.vercel.app/user/getUserData', {
+      const res = await fetch('http://localhost:5000/user/getUserData', {
         method: 'GET',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
         },
         credentials: 'include'
       });
@@ -83,11 +86,12 @@ const MainPage = () => {
   };
   const showMeets = async () => {
     try {
-      const res = await fetch('https://meet-slot-booking-backend.vercel.app/meets/getAllMeets', {
+      const res = await fetch('http://localhost:5000/meets/getAllMeets', {
         method: 'GET',
         headers: {
-          Accept: 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
         },
         credentials: 'include',
       });

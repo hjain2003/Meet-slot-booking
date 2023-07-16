@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './AddMeet.css';
 
 const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
-
+    const token = localStorage.getItem('jwtoken');
     const [meetDetails, setMeetDetails] = useState({
         date: "",
         time: "",
@@ -24,11 +24,12 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
 
         const { date, time, title } = meetDetails;
         try {
-            const res = await fetch('https://meet-slot-booking-backend.vercel.app/meets/addMeet', {
+            const res = await fetch('http://localhost:5000/meets/addMeet', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     date,

@@ -8,7 +8,7 @@ const Logout = () => {
     const result = window.confirm('Are you sure you want to logout?');
     if (result) {
       try {
-        const res = await fetch('https://meet-slot-booking-backend.vercel.app/user/logout', {
+        const res = await fetch('http://localhost:5000/user/logout', {
           method: 'GET',
           headers: {
             Accept: 'application/json',
