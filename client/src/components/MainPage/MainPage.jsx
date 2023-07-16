@@ -57,7 +57,7 @@ const MainPage = () => {
   const [userData, setUserData] = useState('');
   const callHomePage = async () => {
     try {
-      const res = await fetch('http://localhost:5000/user/getUserData', {
+      const res = await fetch('https://meet-slot-booking-backend.vercel.app/user/getUserData', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -83,7 +83,7 @@ const MainPage = () => {
   };
   const showMeets = async () => {
     try {
-      const res = await fetch('http://localhost:5000/meets/getAllMeets', {
+      const res = await fetch('https://meet-slot-booking-backend.vercel.app/meets/getAllMeets', {
         method: 'GET',
         headers: {
           Accept: 'application/json',

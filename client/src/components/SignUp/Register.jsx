@@ -27,7 +27,7 @@ const Register = () => {
         e.preventDefault();
         const { name, password , hated} = user;
     
-        const res = await fetch("http://localhost:5000/user/register", {
+        const res = await fetch("https://meet-slot-booking-backend.vercel.app/user/register", {
           method: "POST",
           credentials: "include",
           headers: {

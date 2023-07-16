@@ -25,7 +25,7 @@ const MeetCard = (props) => {
     // Check if the logged-in user is the creator of the meet
     if (props.userId === localStorage.getItem('userId')) {
       try {
-        const response = await fetch(`http://localhost:5000/meets/${props.cardId}`, {
+        const response = await fetch(`https://meet-slot-booking-backend.vercel.app/meets/${props.cardId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
