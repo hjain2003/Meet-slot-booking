@@ -6,8 +6,8 @@ const MeetRouter = express.Router();
 
 MeetRouter.post('/addMeet',Authenticate,setMeet);
 MeetRouter.get('/getAllMeets',Authenticate,getAllMeets);
-MeetRouter.get('/getMeetbyId/:id',getMeetById);
-MeetRouter.delete('/:id',deleteMeet);
-MeetRouter.put('/editMeet/:id',editMeet);
+MeetRouter.get('/getMeetbyId/:id',Authenticate,getMeetById);
+MeetRouter.delete('/:id',Authenticate,deleteMeet);
+MeetRouter.put('/editMeet/:id',Authenticate,editMeet);
 
 export default MeetRouter;
