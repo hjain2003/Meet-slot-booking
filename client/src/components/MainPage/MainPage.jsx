@@ -17,6 +17,7 @@ const MainPage = () => {
 
   const token = localStorage.getItem('jwtoken');
 
+  console.log("TOKEN : ",token);
   const callAddMeetComponent = () => {
     setCallMeetbtn(!callMeetbtn);
   };
