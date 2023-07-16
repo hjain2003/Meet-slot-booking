@@ -3,6 +3,7 @@ import './AddMeet.css';
 
 const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
 
+    const token = localStorage.getItem('jwtoken');
     const [meetDetails, setMeetDetails] = useState({
         date: "",
         time: "",
@@ -29,6 +30,7 @@ const AddMeet = ({ closeAddMeet , setMeetCount, meetCount, setRefreshPage}) => {
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     date,

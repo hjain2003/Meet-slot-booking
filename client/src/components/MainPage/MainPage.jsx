@@ -10,6 +10,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
 
+  const token = localStorage.getItem('jwtoken');
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(4);
@@ -61,7 +62,8 @@ const MainPage = () => {
         method: 'GET',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         credentials: 'include'
       });
@@ -88,6 +90,7 @@ const MainPage = () => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         credentials: 'include',
       });
