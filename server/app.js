@@ -14,12 +14,12 @@ connectDB();
 
 //middlewares
 app.use(cookieParser());
-// app.use(cors({
-//     origin: 'https://meet-slot-booking.vercel.app',
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     // allowedHeaders: ['Content-Type', 'Authorization'],
-// }));
+app.use(cors({
+    origin: 'https://meet-slot-booking.vercel.app',
+    // credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    // allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 app.use('/user', userRouter);
 app.use('/meets', MeetRouter);
