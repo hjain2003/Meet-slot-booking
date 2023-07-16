@@ -4,10 +4,11 @@ import mongoose from 'mongoose';
 
 //addMeet
 export const setMeet = async (req, res) => {
-    const { title, date,time, user } = req.body;
+  const { title, date, time, user } = req.body;
 
   if (!title || !date || !time) {
-    res.status(422).json({ error: "fields empty" });
+    res.status(422).json({ error: "Fields empty" });
+    return; // Return early if there are missing fields
   }
 
   // Get the user ID from the authenticated user
@@ -16,7 +17,7 @@ export const setMeet = async (req, res) => {
   try {
     const existingUser = await User.findById(userId);
     if (!existingUser) {
-      res.status(422).json({ message: "user not found" });
+      res.status(422).json({ message: "User not found" });
     } else {
       const meetset = new Meet({
         title,
@@ -25,18 +26,22 @@ export const setMeet = async (req, res) => {
         user: userId
       });
 
-      //create session to save pass in both collections
-      const session = await mongoose.startSession(); //starts a session
+      // Create session to save pass in both collections
+      const session = await mongoose.startSession(); // Starts a session
       session.startTransaction();
 
-      existingUser.meets.push(meetset); //pushing to passwords array in user schema
-      await existingUser.save({ session }); //saving user
-      const meetAdd = await meetset.save({ session }); //saving password
-      session.commitTransaction(); //finishing transaction
+      existingUser.meets.push(meetset); // Pushing to passwords array in user schema
+      await existingUser.save({ session }); // Saving user
+      const meetAdd = await meetset.save({ session }); // Saving password
+      session.commitTransaction(); // Finishing transaction
       if (meetAdd) {
-        res.status(201).json({ message: "meet added successfully" });
+        // Return the name of the user who creates the meet
+        res.status(201).json({
+          message: "Meet added successfully",
+          userName: existingUser.name // Add this line to return the user's name
+        });
       } else {
-        res.status(422).json({ message: "meet not added" });
+        res.status(422).json({ message: "Meet not added" });
       }
     }
   } catch (err) {
@@ -44,6 +49,7 @@ export const setMeet = async (req, res) => {
     res.status(500).json({ error: "Unexpected error" });
   }
 };
+
 
 //getMeetbyId
 export const getMeetById = async (req, res) => {
@@ -65,19 +71,19 @@ export const getMeetById = async (req, res) => {
 
 //showMeets
 export const getAllMeets=async(req,res)=>{
-    let meets;
-    try {
-        meets = await Meet.find(); 
-    } catch (err) {
-        console.log(err);
-    }
+  try {
+    const meets = await Meet.find()
+      .populate({
+        path: 'user',
+        select: 'name', // Include only the 'name' field of the referenced user document
+      })
+      .sort({ date: 1, time: 1 });
 
-    if (!meets) {
-        res.status(500).json({ error: 'unexpected error' });
-    }
-    else {
-        res.status(200).json({ meets});
-    }
+    res.status(200).json({ meets });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Unexpected error' });
+  }
 };
 
 //deleteMeet

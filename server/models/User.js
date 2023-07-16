@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    hated :{
+        type: String,
+        required: true
+    },
     meets:[{
         type : mongoose.Types.ObjectId,
         ref: "Meet"

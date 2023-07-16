@@ -8,4 +8,5 @@ userRouter.post('/login',login);
 userRouter.get('/logout',logout);
 userRouter.get('/getUserData',Authenticate,callUserDetails);
 
+
 export default userRouter;

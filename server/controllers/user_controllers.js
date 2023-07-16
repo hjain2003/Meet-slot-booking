@@ -82,3 +82,4 @@ export const logout = async (req, res) => {
 export const callUserDetails = async (req, res) => {
     res.send(req.rootUser);
 }
+

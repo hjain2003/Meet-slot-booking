@@ -16,6 +16,29 @@ body{
     padding: 20px;
 }
 
+#alert{
+    background-color: lightgreen;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    /* margin: auto; */
+    justify-content: center;
+    align-items: center;
+}
+#closeAlert{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(10, 167, 10);
+    color: white;
+}
+
 .login_box input{
     border: none;
     border-radius: 10px;

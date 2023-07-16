@@ -1,14 +1,32 @@
+.card_wrapper{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(78, 194, 232);
+  border-radius: 40px;
+  padding: 10px;
+  font-size: 18px;
+  height: 80px;
+  margin: 10px;
+}
+
+.name_buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .card {
-    background-color: rgb(78, 194, 232);
+  margin-top: -25px;
+    /* background-color: rgb(78, 194, 232); */
     font-size: 18px;
-    padding: 10px;
-    height: 60px;
+    /* padding: 10px; */
+    /* height: 60px; */
     line-height: 60px;
     width: 600px;
     display: flex;
     flex-direction: row;
-    border-radius: 40px;
-    margin: 10px;
+    /* border-radius: 40px; */
+    /* margin: 10px; */
     justify-content: center;
     align-items: center;
   }
@@ -40,6 +58,32 @@
   #delete_btn {
     background-color: red;
   }
+
+
+  .error_msg_box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border:2px solid red;
+    background-color: rgb(221, 128, 128);
+    font-weight: bold;
+    font-size: 23px;
+    padding: 20px;
+    color: red;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #close_error{
+    border:none;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
   
   @media(max-width: 646px){
     .card{
@@ -63,8 +107,16 @@
         width: 350px;
         font-size: 14px;
     }
+    .edit_del{
+      height: 12px;
+      width: 12px;
+    }
+    #edit_btn,#delete_btn{
+      height: 30px;
+      width: 30px;
+    }
     .card_info{
-        flex: none;
+        /* flex: none; */
     }
   }
 
