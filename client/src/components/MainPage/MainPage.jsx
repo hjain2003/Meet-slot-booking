@@ -17,7 +17,7 @@ const MainPage = () => {
 
   const token = localStorage.getItem('jwtoken');
   console.log("TOKEN : ",token);
-
+  
   const callAddMeetComponent = () => {
     setCallMeetbtn(!callMeetbtn);
   };
@@ -50,41 +50,41 @@ const MainPage = () => {
 
   const [userData, setUserData] = useState('');
 
-  const callHomePage = async () => {
-    try {
-      if (!token) {
-        navigate('/login');
-        return;
-      }
+  // const callHomePage = async () => {
+  //   try {
+  //     if (!token) {
+  //       navigate('/login');
+  //       return;
+  //     }
 
-      const res = await fetch('https://meet-slot-booking-backend.vercel.app/user/getUserData', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-        },
-        credentials: 'include',
-      });
+  //     const res = await fetch('https://meet-slot-booking-backend.vercel.app/user/getUserData', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`,
+  //         'Accept': 'application/json',
+  //       },
+  //       credentials: 'include',
+  //     });
 
-      if (res.status === 200) {
-        const data = await res.json();
-        setUserData(data);
+  //     if (res.status === 200) {
+  //       const data = await res.json();
+  //       setUserData(data);
 
-        if (data) {
-          showMeets();
-        } else {
-          setIsLoading(false);
-        }
-      } else {
-        // navigate('/login');
-        console.log("failed");
-      }
-    } catch (err) {
-      console.log(err);
-      navigate('/login');
-    }
-  };
+  //       if (data && data._id) {
+  //         showMeets();
+  //       } else {
+  //         setIsLoading(false);
+  //       }
+  //     } else {
+  //       // navigate('/login');
+  //       console.log("failed");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     navigate('/login');
+  //   }
+  // };
 
   const showMeets = async () => {
     try {
@@ -166,7 +166,7 @@ const MainPage = () => {
           ) : (
             <div className="card_container">
               <span id="name_mainPage">
-                <b>Hey {userData.name} baby&nbsp;<FaRegKissWinkHeart />&nbsp;&nbsp;&nbsp;&nbsp;<span id="logout"><b><NavLink to='/logout'>LOGOUT</NavLink></b></span></b>
+                {/* <b>Hey {userData.name} baby&nbsp;<FaRegKissWinkHeart />&nbsp;&nbsp;&nbsp;&nbsp;<span id="logout"><b><NavLink to='/logout'>LOGOUT</NavLink></b></span></b> */}
               </span>
 
               {currentCards.map((card, index) => (
