@@ -2,19 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './MainPage.css';
 import MeetCard from '../MeetCard/MeetCard';
 import AddMeet from '../AddMeet/AddMeet';
-import { FaPlus } from 'react-icons/fa';
-import { FaKiss } from 'react-icons/fa';
-import { FaRegKissWinkHeart } from 'react-icons/fa';
+import { FaPlus, FaRegKissWinkHeart } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom';
-// import { ObjectId } from 'bson';
 
 const MainPage = () => {
-  
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(4);
   const [callMeetbtn, setCallMeetbtn] = useState(false);
-  const [IsLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [meetCount, setMeetCount] = useState(0);
   const [refreshPage, setRefreshPage] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,28 +19,24 @@ const MainPage = () => {
 
   const callAddMeetComponent = () => {
     setCallMeetbtn(!callMeetbtn);
-  }
+  };
 
   const closeAddMeet = () => {
     setCallMeetbtn(false);
-  }
+  };
 
-  // Sample data for demonstration
   const [meetCards, setMeetCards] = useState([]);
 
-  // Calculate the indexes of the cards to display
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
   const currentCards = meetCards.slice(indexOfFirstCard, indexOfLastCard);
 
-  // Handle "Next" button click
   const handleNextClick = () => {
     if (indexOfLastCard < meetCards.length) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  // Handle "Previous" button click
   const handlePrevClick = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -55,10 +47,15 @@ const MainPage = () => {
     setMeetCards(meetCards.filter((card) => card._id !== cardId));
   };
 
-
   const [userData, setUserData] = useState('');
+
   const callHomePage = async () => {
     try {
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
       const res = await fetch('https://meet-slot-booking-backend.vercel.app/user/getUserData', {
         method: 'GET',
         headers: {
@@ -66,24 +63,27 @@ const MainPage = () => {
           'Authorization': `Bearer ${token}`,
           'Accept': 'application/json',
         },
-        credentials: 'include'
+        credentials: 'include',
       });
 
-      const data = await res.json();
-      console.log(data);
-      setUserData(data);
-      // setIsLoading(false);
+      if (res.status === 200) {
+        const data = await res.json();
+        setUserData(data);
 
-      if (res.status !== 200) {
+        if (data && data._id) {
+          showMeets();
+        } else {
+          setIsLoading(false);
+        }
+      } else {
         navigate('/login');
-        const error = new Error(res.error);
-        throw error;
       }
     } catch (err) {
       console.log(err);
       navigate('/login');
     }
   };
+
   const showMeets = async () => {
     try {
       const res = await fetch('https://meet-slot-booking-backend.vercel.app/meets/getAllMeets', {
@@ -95,38 +95,34 @@ const MainPage = () => {
         },
         credentials: 'include',
       });
-  
+
       if (res.status === 200) {
-        setIsLoading(false);
         const data = await res.json();
-  
+
         const meetsWithUserName = data.meets.map((meet) => ({
           ...meet,
-          userName: meet.user.name, // Extract the name from the 'user' field
-          userId : meet.user._id.toString(),
+          userName: meet.user.name,
+          userId: meet.user._id.toString(),
         }));
-  
-        // Sort the meets based on date and time
+
         const sortedMeets = meetsWithUserName.sort((a, b) => {
-          // Compare dates first
           const dateComparison = new Date(a.date) - new Date(b.date);
           if (dateComparison !== 0) {
             return dateComparison;
           }
-  
-          // If dates are the same, compare times
+
           const timeComparison = a.time.localeCompare(b.time);
           return timeComparison;
         });
-  
-        // Filter the meets based on search query
+
         const filteredMeets = sortedMeets.filter((meet) => {
           const title = meet.title.toLowerCase();
           const query = searchQuery.toLowerCase();
           return title.includes(query);
         });
-  
+
         setMeetCards(filteredMeets);
+        setIsLoading(false);
       } else {
         console.log('Error:', res.status);
       }
@@ -134,7 +130,6 @@ const MainPage = () => {
       console.log(error);
     }
   };
-  
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -144,14 +139,11 @@ const MainPage = () => {
 
   useEffect(() => {
     callHomePage();
-    showMeets();
-    setRefreshPage(false);
-  }, [refreshPage]);
+  }, []);
 
   const handleSearchClick = () => {
     showMeets();
   };
-
 
   return (
     <>
@@ -167,10 +159,13 @@ const MainPage = () => {
             <button id="add_meet" onClick={callAddMeetComponent}>Add a Meet &nbsp; <FaPlus /></button>
           </div>
           <br />
-          {IsLoading ? (<h1>Loading...</h1>) : (
+          {isLoading ? (
+            <h1>Loading...</h1>
+          ) : (
             <div className="card_container">
-              <span id="name_mainPage"><b>Hey {userData.name} baby&nbsp;<FaRegKissWinkHeart />&nbsp;&nbsp;&nbsp;&nbsp;<span id="logout"><b><NavLink to='/logout'>LOGOUT</NavLink></b></span></b></span>
-              
+              <span id="name_mainPage">
+                <b>Hey {userData.name} baby&nbsp;<FaRegKissWinkHeart />&nbsp;&nbsp;&nbsp;&nbsp;<span id="logout"><b><NavLink to='/logout'>LOGOUT</NavLink></b></span></b>
+              </span>
 
               {currentCards.map((card, index) => (
                 <MeetCard
@@ -179,7 +174,7 @@ const MainPage = () => {
                   date={card.date}
                   time={card.time}
                   title={card.title}
-                  userName={card.userName} // Pass the userName as a prop to MeetCard
+                  userName={card.userName}
                   userId={card.userId}
                   onDelete={handleCardDelete}
                 />
