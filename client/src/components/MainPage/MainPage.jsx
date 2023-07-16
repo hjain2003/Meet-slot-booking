@@ -140,7 +140,8 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    callHomePage();
+    // callHomePage();
+    showMeets();
   }, []);
 
   const handleSearchClick = () => {
