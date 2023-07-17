@@ -47,7 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   margin-left: 5px;
   cursor: pointer;
   color: white;
@@ -112,9 +112,11 @@
         font-size: 14px;
     }
     .card_info{
-        flex: none;
+        /* flex: none; */
     }
     #edit_btn,#delete_btn{
+      height: 35px;
+      width: 35px;
       padding: 6px;
     }
   }
