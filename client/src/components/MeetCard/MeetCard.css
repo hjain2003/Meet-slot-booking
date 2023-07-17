@@ -107,14 +107,6 @@
         width: 350px;
         font-size: 14px;
     }
-    /* .edit_del{
-      height: 12px;
-      width: 12px;
-    } */
-    #edit_btn,#delete_btn{
-      height: 35px;
-      width: 35px;
-    }
     .card_info{
         /* flex: none; */
     }
