@@ -143,6 +143,10 @@ const MainPage = () => {
     callHomePage();
   }, []);
 
+  useEffect(() => {
+    showMeets();
+  }, [refreshPage]);
+  
   const handleSearchClick = () => {
     showMeets();
   };
