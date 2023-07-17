@@ -62,7 +62,7 @@ const MeetCard = (props) => {
           </button>
           </span>
           <span onClick={handleDelete}><button id="delete_btn" className='edit_del'>
-            Delete
+            Del
           </button>
           </span>
         </div>
