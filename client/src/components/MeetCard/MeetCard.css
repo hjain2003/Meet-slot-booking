@@ -32,8 +32,9 @@
   }
   
   .card_info {
-    flex: 1;
+    /* flex: 1; */
     padding: 10px;
+    pointer-events: none;
   }
   
   #edit_btn,
