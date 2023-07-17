@@ -32,7 +32,7 @@
   }
   
   .card_info {
-    /* flex: 1; */
+    flex: 1;
     padding: 10px;
     pointer-events: none;
   }
@@ -41,12 +41,14 @@
 #delete_btn {
   border: none;
   padding: 10px;
-  width: 60px; /* Adjust the width as needed */
+  height: 40px;
+  width: 40px; /* Adjust the width as needed */
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   cursor: pointer;
   color: white;
   box-sizing: border-box; /* Include padding in width calculation */
@@ -110,7 +112,7 @@
         font-size: 14px;
     }
     .card_info{
-        /* flex: none; */
+        flex: none;
     }
   }
 
