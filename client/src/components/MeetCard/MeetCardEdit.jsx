@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MeetCardEdit.css';
 
 const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
+    const[isLoading,setIsLoading] = useState(false);
     const [meetDetails, setMeetDetails] = useState({
         title: "",
         date: "",
@@ -57,6 +58,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
 
     useEffect(() => {
         const fetchMeetDetails = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetch(`https://meet-slot-booking-backend.vercel.app/meets/getMeetbyId/${meetId}`, {
                     method: 'GET',
@@ -67,6 +69,7 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
 
                 if (response.status === 200) {
                     const data = await response.json();
+                    setIsLoading(false);
                     setMeetDetails({
                         title: data.title,
                         date: data.date,
@@ -91,13 +94,13 @@ const MeetCardEdit = ({ closeMeetCardEdit, meetId }) => {
                 <h2 align="center">Edit Meet Details</h2>
                 <br />
                 <label><i>Title &#40;<span className="redit">Word Limit : 13 chars</span>&#41;</i></label>
-                <input type="text" name="title" value={meetDetails.title} onChange={handleChange} />
+                <input type="text" name="title" value={isLoading? "Loading" : (meetDetails.title)} onChange={handleChange} />
                 <br />
                 <label><i>Date</i></label>
-                <input type="date" name="date" value={meetDetails.date} onChange={handleChange} />
+                <input type="date" name="date" value={isLoading? "Loading" : meetDetails.date} onChange={handleChange} />
                 <br />
                 <label><i>Time</i></label>
-                <input type="time" name="time" value={meetDetails.time} onChange={handleChange} />
+                <input type="time" name="time" value={isLoading? "Loading" : meetDetails.time} onChange={handleChange} />
                 <br /><br />
                 <button id="save_meet_details" onClick={saveMeetDetails}><b>{loadMsg}</b></button>
                 <br />

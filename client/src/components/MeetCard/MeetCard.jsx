@@ -58,11 +58,11 @@ const MeetCard = (props) => {
         <div className="name_buttons">
           <span className="card_info"><b>{props.userName}</b></span>
           <span onClick={handleEdit}><button id="edit_btn">
-            <FaEdit className='edit_del' />
+            Edit
           </button>
           </span>
           <span onClick={handleDelete}><button id="delete_btn" className='edit_del'>
-            <FaTrash />
+            Delete
           </button>
           </span>
         </div>
