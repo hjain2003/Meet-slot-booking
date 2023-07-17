@@ -112,7 +112,7 @@
         font-size: 14px;
     }
     .card_info{
-        /* flex: none; */
+        flex: none;
     }
     #edit_btn,#delete_btn{
       height: 35px;
